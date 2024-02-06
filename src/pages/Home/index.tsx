@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
-import { Modal } from 'antd'
+import { Modal, Tabs } from 'antd'
 import { memo } from 'react'
 import { Outlet } from 'react-router-dom'
 
@@ -19,7 +19,22 @@ const Home: FC = () => {
     <div className="p-4">
       <Outlet />
       <Modal open={isLoginModalVisible} footer={null} onCancel={handleCancel}>
-        登陆弹窗
+        <Tabs
+          defaultActiveKey="1"
+          centered
+          items={[
+            {
+              key: 'login',
+              label: '登录',
+              children: '登录'
+            },
+            {
+              key: 'register',
+              label: '注册',
+              children: '注册'
+            }
+          ]}
+        />
       </Modal>
     </div>
   )
