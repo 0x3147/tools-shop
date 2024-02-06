@@ -1,4 +1,6 @@
+import { Modal } from 'antd'
 import { memo } from 'react'
+import { Outlet } from 'react-router-dom'
 
 import type { FC, ReactNode } from 'react'
 
@@ -8,8 +10,9 @@ interface IProps {
 
 const Home: FC<IProps> = () => {
   return (
-    <div>
-      <div>Home</div>
+    <div className="p-4">
+      <Outlet />
+      <Modal footer={null}></Modal>
     </div>
   )
 }

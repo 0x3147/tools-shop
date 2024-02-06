@@ -1,10 +1,11 @@
 import { lazy } from 'react'
-import { createBrowserRouter, type RouteObject } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import type { Router } from '@remix-run/router/dist/router'
 
 const Layout = lazy(() => import('@/Layout'))
 const Home = lazy(() => import('@/pages/Home'))
+const Dashboard = lazy(() => import('@/pages/Dashboard'))
 
 const router: Router = createBrowserRouter([
   {
@@ -13,10 +14,20 @@ const router: Router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home />
+        element: <Home />,
+        children: [
+          {
+            path: '/',
+            element: <Navigate to="/home/dashboard" />
+          },
+          {
+            path: '/home/dashboard',
+            element: <Dashboard />
+          }
+        ]
       }
     ]
   }
-] as RouteObject[])
+])
 
 export default router
