@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
+import homeReducer from './homeReducer'
 
 import type { TypedUseSelectorHook } from 'react-redux'
 
 const store = configureStore({
-  reducer: {}
+  reducer: {
+    home: homeReducer
+  }
 })
 
 // 获取state类型
