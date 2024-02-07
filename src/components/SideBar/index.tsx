@@ -50,7 +50,7 @@ const SideBar: FC = () => {
         <ul className="space-y-6">
           {renderButton('/home/dashboard', '首页')}
           {renderButton('/home/allTools', '所有工具')}
-          {renderButton('/home/chat', '聊天')}
+          {renderButton('/home/chat', 'AI聊天')}
           {/* 更多按钮 */}
         </ul>
       </div>
