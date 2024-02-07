@@ -16,7 +16,7 @@ const Home: FC = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="h-full w-full bg-[#fefefe] p-4">
       <Outlet />
       <Modal open={isLoginModalVisible} footer={null} onCancel={handleCancel}>
         <Tabs
