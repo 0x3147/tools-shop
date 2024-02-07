@@ -18,9 +18,14 @@ const Home: FC = () => {
   }
 
   return (
-    <div className="h-full w-full bg-[#fefefe] p-4">
+    <main className="h-full w-full bg-[#fefefe] p-4">
       <Outlet />
-      <Modal open={isLoginModalVisible} footer={null} onCancel={handleCancel} maskClosable={false}>
+      <Modal
+        open={isLoginModalVisible}
+        footer={null}
+        onCancel={handleCancel}
+        maskClosable={false}
+      >
         <Tabs
           defaultActiveKey="1"
           centered
@@ -38,7 +43,7 @@ const Home: FC = () => {
           ]}
         />
       </Modal>
-    </div>
+    </main>
   )
 }
 
