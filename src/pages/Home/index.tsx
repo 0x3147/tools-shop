@@ -1,8 +1,10 @@
+import Register from '@/pages/Home/components/Register'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { Modal, Tabs } from 'antd'
 import { memo } from 'react'
 import { Outlet } from 'react-router-dom'
+import Login from './components/Login'
 
 import type { FC } from 'react'
 
@@ -26,12 +28,12 @@ const Home: FC = () => {
             {
               key: 'login',
               label: '登录',
-              children: '登录'
+              children: <Login />
             },
             {
               key: 'register',
               label: '注册',
-              children: '注册'
+              children: <Register />
             }
           ]}
         />
