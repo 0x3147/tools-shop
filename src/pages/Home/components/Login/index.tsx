@@ -1,26 +1,49 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Button, Checkbox, Form, Input, Space } from 'antd'
-import { memo } from 'react'
-import { Link } from 'react-router-dom'
+import { Checkbox, Form, Input } from 'antd'
+import { memo, useEffect } from 'react'
 
 import type { FC, ReactNode } from 'react'
 
 const { Item } = Form
+
+const USERNAME_KEY = 'username'
+const PASSWORD_KEY = 'PASSWORD'
+
+// const rememberUser = (username: string, password: string) => {
+//   localStorage.setItem(USERNAME_KEY, username)
+//   localStorage.setItem(PASSWORD_KEY, password)
+// }
+//
+// const deleteUserStorage = () => {
+//   localStorage.removeItem(USERNAME_KEY)
+//   localStorage.removeItem(PASSWORD_KEY)
+// }
+
+const getUserStorage = () => {
+  return {
+    username: localStorage.getItem(USERNAME_KEY),
+    password: localStorage.getItem(PASSWORD_KEY)
+  }
+}
 
 interface IProps {
   children?: ReactNode
 }
 
 const Login: FC<IProps> = () => {
-  const onFinish = (values: any) => {
-    console.log('Received values of form: ', values)
-  }
+  const [form] = Form.useForm()
+
+  useEffect(() => {
+    const { username, password } = getUserStorage()
+    form.setFieldsValue({ username, password })
+  }, [])
+
+  const onFinish = () => {}
 
   return (
     <Form
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
-      name="normal_login"
       initialValues={{ remember: true }}
       onFinish={onFinish}
     >
@@ -44,17 +67,18 @@ const Login: FC<IProps> = () => {
         />
       </Item>
 
-      <Item wrapperCol={{ offset: 6, span: 16 }}>
+      <Item
+        name="remember"
+        valuePropName="checked"
+        wrapperCol={{ offset: 5, span: 16 }}
+      >
         <Checkbox>记住我</Checkbox>
       </Item>
 
-      <Item wrapperCol={{ offset: 6, span: 16 }}>
-        <Space direction="vertical">
-          <Button type="primary" htmlType="submit" block>
-            登录
-          </Button>
-          <Link to={''}>还没有账号？点击这里去注册一个吧！</Link>
-        </Space>
+      <Item wrapperCol={{ offset: 5, span: 16 }}>
+        <button className="flex h-10 w-full cursor-pointer items-center justify-center rounded bg-gradient-to-r from-[#ff9a9e] to-[#fad0c4] text-white hover:from-[#f6d365] hover:to-[#fda085]">
+          登录
+        </button>
       </Item>
     </Form>
   )
