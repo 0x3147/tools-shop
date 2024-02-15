@@ -52,7 +52,7 @@ const Login: FC<IProps> = () => {
         name="username"
         rules={[{ required: true, message: '用户名不能为空哦' }]}
       >
-        <Input prefix={<UserOutlined />} placeholder="Username" />
+        <Input prefix={<UserOutlined />} placeholder="请输入用户名" />
       </Item>
 
       <Item
@@ -63,7 +63,7 @@ const Login: FC<IProps> = () => {
         <Input
           prefix={<LockOutlined />}
           type="password"
-          placeholder="Password"
+          placeholder="请输入密码"
         />
       </Item>
 
