@@ -68,6 +68,9 @@ const SideBar: FC = () => {
             className="cursor-pointer"
             src="https://api.dicebear.com/7.x/miniavs/svg?seed=3"
             size="large"
+            onClick={() => {
+              console.log(111)
+            }}
           />
           <span className="text-yellow-800">{username}</span>
         </div>
