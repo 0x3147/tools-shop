@@ -2,8 +2,11 @@ import { message as msg } from 'antd'
 import axios, { type AxiosResponse } from 'axios'
 import type { IRes } from './typs.ts'
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
+
 const instance = axios.create({
-  timeout: 10 * 1000
+  timeout: 10 * 1000,
+  baseURL: API_BASE_URL
 })
 
 instance.interceptors.request.use(
