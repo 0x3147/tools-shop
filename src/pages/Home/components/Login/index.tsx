@@ -1,5 +1,9 @@
 import { useAppDispatch } from '@/store'
-import { setIsLoginModalVisible } from '@/store/homeReducer'
+import {
+  setIsLoginModalVisible,
+  setIsUserLogin,
+  setUsername
+} from '@/store/homeReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { Checkbox, Form, Input, message } from 'antd'
@@ -52,7 +56,10 @@ const Login: FC<IProps> = () => {
       manual: true,
       onSuccess: () => {
         message.success('登录成功！')
+        console.log(form.getFieldValue('username'))
+        dispatch(setUsername(form.getFieldValue('username')))
         dispatch(setIsLoginModalVisible(false))
+        dispatch(setIsUserLogin(true))
       }
     }
   )
@@ -70,6 +77,7 @@ const Login: FC<IProps> = () => {
 
   return (
     <Form
+      form={form}
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
       initialValues={{ remember: true }}

@@ -5,10 +5,14 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface IHomeState {
   isLoginModalVisible: boolean
+  isUserLogin: boolean
+  username: string
 }
 
 const initialState: IHomeState = {
-  isLoginModalVisible: false
+  isLoginModalVisible: false,
+  isUserLogin: false,
+  username: ''
 }
 
 export const counterSlice = createSlice({
@@ -19,9 +23,20 @@ export const counterSlice = createSlice({
       (draft: IHomeState, { payload }: PayloadAction<boolean>) => {
         draft.isLoginModalVisible = payload
       }
+    ),
+    setIsUserLogin: produce(
+      (draft: IHomeState, { payload }: PayloadAction<boolean>) => {
+        draft.isUserLogin = payload
+      }
+    ),
+    setUsername: produce(
+      (draft: IHomeState, { payload }: PayloadAction<string>) => {
+        draft.username = payload
+      }
     )
   }
 })
 
-export const { setIsLoginModalVisible } = counterSlice.actions
+export const { setIsLoginModalVisible, setIsUserLogin, setUsername } =
+  counterSlice.actions
 export default counterSlice.reducer
