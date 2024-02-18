@@ -25,6 +25,7 @@ const Home: FC = () => {
         footer={null}
         onCancel={handleCancel}
         maskClosable={false}
+        destroyOnClose={true}
       >
         <Tabs
           defaultActiveKey="1"

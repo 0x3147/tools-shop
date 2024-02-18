@@ -1,12 +1,15 @@
 import { message as msg } from 'antd'
 import axios, { type AxiosResponse } from 'axios'
-import type { IRes } from './typs.ts'
+import type { IRes } from './type.ts'
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const instance = axios.create({
   timeout: 10 * 1000,
-  baseURL: API_BASE_URL
+  baseURL: API_BASE_URL,
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded',
+  }
 })
 
 instance.interceptors.request.use(
@@ -27,3 +30,5 @@ instance.interceptors.response.use(async (res: AxiosResponse) => {
   }
   return data as any
 })
+
+export default instance

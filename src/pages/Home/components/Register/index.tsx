@@ -1,13 +1,36 @@
-import { Form, Input } from 'antd'
+import { userRegisterService } from '@/service/user.ts'
+import { useAppDispatch } from '@/store'
+import { setIsLoginModalVisible } from '@/store/homeReducer'
+import { useRequest } from 'ahooks'
+import { Form, Input, message } from 'antd'
 import { memo } from 'react'
 
+import type { IRegisterParam } from '@/service/user.ts'
 import type { FC } from 'react'
 
 const { Item } = Form
 const { Password } = Input
 
 const Register: FC = () => {
-  const onFinish = () => {}
+  const dispatch = useAppDispatch()
+
+  const { run } = useRequest(
+    async (values: IRegisterParam) => {
+      await userRegisterService(values)
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('注册成功！')
+        dispatch(setIsLoginModalVisible(false))
+      }
+    }
+  )
+
+  const onFinish = (values: any) => {
+    run(values)
+  }
+
   return (
     <Form labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} onFinish={onFinish}>
       <Item
