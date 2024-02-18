@@ -8,7 +8,7 @@ const instance = axios.create({
   timeout: 10 * 1000,
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/x-www-form-urlencoded',
+    'Content-Type': 'application/x-www-form-urlencoded'
   }
 })
 
