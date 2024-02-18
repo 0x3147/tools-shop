@@ -6,8 +6,21 @@ export interface IRegisterParam {
   password: string
 }
 
-export const userRegisterService = async (param: IRegisterParam) => {
+export interface ILoginParam {
+  username: string
+  password: string
+}
+
+const userRegisterService = async (param: IRegisterParam) => {
   const url = '/user/register'
 
   return await axios.post(url, param)
 }
+
+const userLoginService = async (param: ILoginParam) => {
+  const url = '/user/login'
+
+  return await axios.post(url, param)
+}
+
+export { userLoginService, userRegisterService }

@@ -1,23 +1,27 @@
+import { useAppDispatch } from '@/store'
+import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
-import { Checkbox, Form, Input } from 'antd'
+import { useRequest } from 'ahooks'
+import { Checkbox, Form, Input, message } from 'antd'
 import { memo, useEffect } from 'react'
 
+import { userLoginService, type ILoginParam } from '@/service/user.ts'
 import type { FC, ReactNode } from 'react'
 
 const { Item } = Form
 
 const USERNAME_KEY = 'username'
-const PASSWORD_KEY = 'PASSWORD'
+const PASSWORD_KEY = 'password'
 
-// const rememberUser = (username: string, password: string) => {
-//   localStorage.setItem(USERNAME_KEY, username)
-//   localStorage.setItem(PASSWORD_KEY, password)
-// }
-//
-// const deleteUserStorage = () => {
-//   localStorage.removeItem(USERNAME_KEY)
-//   localStorage.removeItem(PASSWORD_KEY)
-// }
+const rememberUser = (username: string, password: string) => {
+  localStorage.setItem(USERNAME_KEY, username)
+  localStorage.setItem(PASSWORD_KEY, password)
+}
+
+const deleteUserStorage = () => {
+  localStorage.removeItem(USERNAME_KEY)
+  localStorage.removeItem(PASSWORD_KEY)
+}
 
 const getUserStorage = () => {
   return {
@@ -31,6 +35,8 @@ interface IProps {
 }
 
 const Login: FC<IProps> = () => {
+  const dispatch = useAppDispatch()
+
   const [form] = Form.useForm()
 
   useEffect(() => {
@@ -38,7 +44,29 @@ const Login: FC<IProps> = () => {
     form.setFieldsValue({ username, password })
   }, [])
 
-  const onFinish = () => {}
+  const { run } = useRequest(
+    async (values: ILoginParam) => {
+      await userLoginService(values)
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('登录成功！')
+        dispatch(setIsLoginModalVisible(false))
+      }
+    }
+  )
+
+  const onFinish = (values: any) => {
+    const { username, password, remember } = values
+    run(values)
+
+    if (remember) {
+      rememberUser(username, password)
+    } else {
+      deleteUserStorage()
+    }
+  }
 
   return (
     <Form

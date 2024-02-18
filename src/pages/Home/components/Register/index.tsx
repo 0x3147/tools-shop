@@ -1,11 +1,10 @@
-import { userRegisterService } from '@/service/user.ts'
+import { userRegisterService, type IRegisterParam } from '@/service/user.ts'
 import { useAppDispatch } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { useRequest } from 'ahooks'
 import { Form, Input, message } from 'antd'
 import { memo } from 'react'
 
-import type { IRegisterParam } from '@/service/user.ts'
 import type { FC } from 'react'
 
 const { Item } = Form
