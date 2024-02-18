@@ -1,5 +1,8 @@
 import { useAppDispatch, useAppSelector } from '@/store'
-import { setIsLoginModalVisible } from '@/store/homeReducer'
+import {
+  setIsLoginModalVisible,
+  setIsUserDetailModalVisible
+} from '@/store/homeReducer'
 import { HomeOutlined, OpenAIOutlined, ToolOutlined } from '@ant-design/icons'
 import { Avatar } from 'antd'
 import { memo, useState } from 'react'
@@ -8,9 +11,12 @@ import { useNavigate } from 'react-router-dom'
 import type { FC, ReactNode } from 'react'
 
 const SideBar: FC = () => {
-  const { isLoginModalVisible, isUserLogin, username } = useAppSelector(
-    (state) => state.home
-  )
+  const {
+    isLoginModalVisible,
+    isUserDetailModalVisible,
+    isUserLogin,
+    username
+  } = useAppSelector((state) => state.home)
 
   const dispatch = useAppDispatch()
 
@@ -25,6 +31,10 @@ const SideBar: FC = () => {
 
   const handleLoginClick = () => {
     dispatch(setIsLoginModalVisible(!isLoginModalVisible))
+  }
+
+  const handleUserDetailClick = () => {
+    dispatch(setIsUserDetailModalVisible(!isUserDetailModalVisible))
   }
 
   const renderButton = (key: string, label: string, icon: ReactNode) => {
@@ -68,9 +78,7 @@ const SideBar: FC = () => {
             className="cursor-pointer"
             src="https://api.dicebear.com/7.x/miniavs/svg?seed=3"
             size="large"
-            onClick={() => {
-              console.log(111)
-            }}
+            onClick={handleUserDetailClick}
           />
           <span className="text-yellow-800">{username}</span>
         </div>

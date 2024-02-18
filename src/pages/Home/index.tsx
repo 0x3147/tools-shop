@@ -1,6 +1,9 @@
 import Register from '@/pages/Home/components/Register'
 import { useAppDispatch, useAppSelector } from '@/store'
-import { setIsLoginModalVisible } from '@/store/homeReducer'
+import {
+  setIsLoginModalVisible,
+  setIsUserDetailModalVisible
+} from '@/store/homeReducer'
 import { Modal, Tabs } from 'antd'
 import { memo } from 'react'
 import { Outlet } from 'react-router-dom'
@@ -9,12 +12,18 @@ import Login from './components/Login'
 import type { FC } from 'react'
 
 const Home: FC = () => {
-  const { isLoginModalVisible } = useAppSelector((state) => state.home)
+  const { isLoginModalVisible, isUserDetailModalVisible } = useAppSelector(
+    (state) => state.home
+  )
 
   const dispatch = useAppDispatch()
 
-  const handleCancel = () => {
+  const handleCancelLoginModal = () => {
     dispatch(setIsLoginModalVisible(!isLoginModalVisible))
+  }
+
+  const handleCancelUserDetailModal = () => {
+    dispatch(setIsUserDetailModalVisible(!isUserDetailModalVisible))
   }
 
   return (
@@ -23,7 +32,7 @@ const Home: FC = () => {
       <Modal
         open={isLoginModalVisible}
         footer={null}
-        onCancel={handleCancel}
+        onCancel={handleCancelLoginModal}
         maskClosable={false}
         destroyOnClose={true}
       >
@@ -43,6 +52,14 @@ const Home: FC = () => {
             }
           ]}
         />
+      </Modal>
+      <Modal
+        open={isUserDetailModalVisible}
+        footer={null}
+        onCancel={handleCancelUserDetailModal}
+        maskClosable={false}
+      >
+        用户信息页Modal
       </Modal>
     </main>
   )
