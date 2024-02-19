@@ -8,6 +8,7 @@ import { Modal, Tabs } from 'antd'
 import { memo } from 'react'
 import { Outlet } from 'react-router-dom'
 import Login from './components/Login'
+import UserInfo from './components/UserInfo'
 
 import type { FC } from 'react'
 
@@ -60,13 +61,15 @@ const Home: FC = () => {
         />
       </Modal>
       <Modal
+        title="用户信息"
+        width={720}
         open={isUserDetailModalVisible}
         footer={null}
         onCancel={handleCancelUserDetailModal}
         maskClosable={false}
         afterOpenChange={handleDetailModalOpen}
       >
-        用户信息页Modal
+        <UserInfo />
       </Modal>
     </main>
   )

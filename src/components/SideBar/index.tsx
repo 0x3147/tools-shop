@@ -10,6 +10,7 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 import { Avatar } from 'antd'
+import avatarPic from '@/assets/avatar.svg'
 import { memo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -80,7 +81,7 @@ const SideBar: FC = () => {
         <div className="mb-8 flex h-16 items-center justify-center">
           <Avatar
             className="cursor-pointer"
-            src="https://api.dicebear.com/7.x/miniavs/svg?seed=3"
+            src={avatarPic}
             size="large"
             icon={<UserOutlined />}
             onClick={handleUserDetailClick}
