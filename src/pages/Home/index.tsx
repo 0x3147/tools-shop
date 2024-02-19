@@ -13,7 +13,7 @@ import type { FC } from 'react'
 
 const Home: FC = () => {
   const { isLoginModalVisible, isUserDetailModalVisible } = useAppSelector(
-    (state) => state.home
+    (state) => state.homeReducer
   )
 
   const dispatch = useAppDispatch()
@@ -24,6 +24,12 @@ const Home: FC = () => {
 
   const handleCancelUserDetailModal = () => {
     dispatch(setIsUserDetailModalVisible(!isUserDetailModalVisible))
+  }
+
+  const handleDetailModalOpen = (open: boolean) => {
+    if (open) {
+      console.log('执行请求')
+    }
   }
 
   return (
@@ -58,6 +64,7 @@ const Home: FC = () => {
         footer={null}
         onCancel={handleCancelUserDetailModal}
         maskClosable={false}
+        afterOpenChange={handleDetailModalOpen}
       >
         用户信息页Modal
       </Modal>

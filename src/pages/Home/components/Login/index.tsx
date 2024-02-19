@@ -1,9 +1,6 @@
 import { useAppDispatch } from '@/store'
-import {
-  setIsLoginModalVisible,
-  setIsUserLogin,
-  setUsername
-} from '@/store/homeReducer'
+import { setIsLoginModalVisible } from '@/store/homeReducer'
+import { setIsLogin, setUsername } from '@/store/userReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { Checkbox, Form, Input, message } from 'antd'
@@ -59,7 +56,7 @@ const Login: FC<IProps> = () => {
         console.log(form.getFieldValue('username'))
         dispatch(setUsername(form.getFieldValue('username')))
         dispatch(setIsLoginModalVisible(false))
-        dispatch(setIsUserLogin(true))
+        dispatch(setIsLogin(true))
       }
     }
   )

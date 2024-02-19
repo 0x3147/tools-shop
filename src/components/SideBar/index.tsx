@@ -3,7 +3,12 @@ import {
   setIsLoginModalVisible,
   setIsUserDetailModalVisible
 } from '@/store/homeReducer'
-import { HomeOutlined, OpenAIOutlined, ToolOutlined } from '@ant-design/icons'
+import {
+  HomeOutlined,
+  OpenAIOutlined,
+  ToolOutlined,
+  UserOutlined
+} from '@ant-design/icons'
 import { Avatar } from 'antd'
 import { memo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -11,12 +16,11 @@ import { useNavigate } from 'react-router-dom'
 import type { FC, ReactNode } from 'react'
 
 const SideBar: FC = () => {
-  const {
-    isLoginModalVisible,
-    isUserDetailModalVisible,
-    isUserLogin,
-    username
-  } = useAppSelector((state) => state.home)
+  const { isLoginModalVisible, isUserDetailModalVisible } = useAppSelector(
+    (state) => state.homeReducer
+  )
+
+  const { isLogin, username } = useAppSelector((state) => state.userReducer)
 
   const dispatch = useAppDispatch()
 
@@ -72,12 +76,13 @@ const SideBar: FC = () => {
         </ul>
       </div>
       {/* 登录按钮区域 */}
-      {isUserLogin === true ? (
+      {isLogin === true ? (
         <div className="mb-8 flex h-16 items-center justify-center">
           <Avatar
             className="cursor-pointer"
             src="https://api.dicebear.com/7.x/miniavs/svg?seed=3"
             size="large"
+            icon={<UserOutlined />}
             onClick={handleUserDetailClick}
           />
           <span className="text-yellow-800">{username}</span>
