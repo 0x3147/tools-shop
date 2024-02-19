@@ -1,3 +1,4 @@
+import avatarPic from '@/assets/avatar.svg'
 import { useAppDispatch, useAppSelector } from '@/store'
 import {
   setIsLoginModalVisible,
@@ -10,7 +11,6 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 import { Avatar } from 'antd'
-import avatarPic from '@/assets/avatar.svg'
 import { memo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
