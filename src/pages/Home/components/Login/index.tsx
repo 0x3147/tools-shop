@@ -3,33 +3,13 @@ import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { setIsLogin, setUsername } from '@/store/userReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { Checkbox, Form, Input, message } from 'antd'
-import { memo, useEffect } from 'react'
+import { Form, Input, message } from 'antd'
+import { memo } from 'react'
 
 import { userLoginService, type ILoginParam } from '@/service/user.ts'
 import type { FC, ReactNode } from 'react'
 
 const { Item } = Form
-
-const USERNAME_KEY = 'username'
-const PASSWORD_KEY = 'password'
-
-const rememberUser = (username: string, password: string) => {
-  localStorage.setItem(USERNAME_KEY, username)
-  localStorage.setItem(PASSWORD_KEY, password)
-}
-
-const deleteUserStorage = () => {
-  localStorage.removeItem(USERNAME_KEY)
-  localStorage.removeItem(PASSWORD_KEY)
-}
-
-const getUserStorage = () => {
-  return {
-    username: localStorage.getItem(USERNAME_KEY),
-    password: localStorage.getItem(PASSWORD_KEY)
-  }
-}
 
 interface IProps {
   children?: ReactNode
@@ -40,11 +20,6 @@ const Login: FC<IProps> = () => {
 
   const [form] = Form.useForm()
 
-  useEffect(() => {
-    const { username, password } = getUserStorage()
-    form.setFieldsValue({ username, password })
-  }, [])
-
   const { run } = useRequest(
     async (values: ILoginParam) => {
       await userLoginService(values)
@@ -53,7 +28,6 @@ const Login: FC<IProps> = () => {
       manual: true,
       onSuccess: () => {
         message.success('登录成功！')
-        console.log(form.getFieldValue('username'))
         dispatch(setUsername(form.getFieldValue('username')))
         dispatch(setIsLoginModalVisible(false))
         dispatch(setIsLogin(true))
@@ -62,14 +36,7 @@ const Login: FC<IProps> = () => {
   )
 
   const onFinish = (values: any) => {
-    const { username, password, remember } = values
     run(values)
-
-    if (remember) {
-      rememberUser(username, password)
-    } else {
-      deleteUserStorage()
-    }
   }
 
   return (
@@ -98,14 +65,6 @@ const Login: FC<IProps> = () => {
           type="password"
           placeholder="请输入密码"
         />
-      </Item>
-
-      <Item
-        name="remember"
-        valuePropName="checked"
-        wrapperCol={{ offset: 5, span: 16 }}
-      >
-        <Checkbox>记住我</Checkbox>
       </Item>
 
       <Item wrapperCol={{ offset: 5, span: 16 }}>
