@@ -1,17 +1,44 @@
-import { userRegisterService, type IRegisterParam } from '@/service/user.ts'
+import {
+  fetchUserRegisterCaptcha,
+  userRegisterService,
+  type IRegisterParam
+} from '@/service/user.ts'
 import { useAppDispatch } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { useRequest } from 'ahooks'
-import { Form, Input, message } from 'antd'
-import { memo } from 'react'
-
-import type { FC } from 'react'
+import { Button, Form, Input, Space, message } from 'antd'
+import { FC, memo, useEffect, useState } from 'react'
 
 const { Item } = Form
 const { Password } = Input
 
 const Register: FC = () => {
+  const [timing, setTiming] = useState(false) // 控制按钮是否处于倒计时状态
+  const [countdown, setCountdown] = useState(60) // 倒计时的初始值
+  const [form] = Form.useForm()
   const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    if (countdown === 0) {
+      setTiming(false)
+    }
+  }, [countdown])
+
+  const startTiming = () => {
+    setTiming(true)
+    setCountdown(60) // 将倒计时重置为60秒
+
+    // 每秒更新一次倒计时
+    const interval = setInterval(() => {
+      setCountdown((prevCountdown) => {
+        if (prevCountdown <= 1) {
+          clearInterval(interval) // 当倒计时结束时清除定时器
+          return 0
+        }
+        return prevCountdown - 1 // 更新倒计时
+      })
+    }, 1000)
+  }
 
   const { run } = useRequest(
     async (values: IRegisterParam) => {
@@ -30,8 +57,28 @@ const Register: FC = () => {
     run(values)
   }
 
+  const { run: getCaptcha } = useRequest(
+    async () => {
+      startTiming()
+      const address = form.getFieldValue('email')
+      console.log(address)
+      await fetchUserRegisterCaptcha(address)
+    },
+    {
+      manual: true,
+      onSuccess: () => {
+        message.success('获取验证码成功！')
+      }
+    }
+  )
+
   return (
-    <Form labelCol={{ span: 6 }} wrapperCol={{ span: 16 }} onFinish={onFinish}>
+    <Form
+      form={form}
+      labelCol={{ span: 6 }}
+      wrapperCol={{ span: 16 }}
+      onFinish={onFinish}
+    >
       <Item
         name="email"
         label="邮箱"
@@ -103,11 +150,24 @@ const Register: FC = () => {
         <Password />
       </Item>
 
-      <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+      <Item
+        label="验证码"
+        name="captcha"
+        rules={[{ required: true, message: '请输入验证码!' }]}
+      >
+        <Space>
+          <Input />
+          <Button type="primary" disabled={timing} onClick={getCaptcha}>
+            {timing ? `${countdown}秒后重新获取` : '获取验证码'}
+          </Button>
+        </Space>
+      </Item>
+
+      <Item wrapperCol={{ offset: 6, span: 16 }}>
         <button className="flex h-10 w-full cursor-pointer items-center justify-center rounded bg-gradient-to-r from-[#ff9a9e] to-[#fad0c4] text-white hover:from-[#f6d365] hover:to-[#fda085]">
           立刻注册
         </button>
-      </Form.Item>
+      </Item>
     </Form>
   )
 }
