@@ -19,7 +19,7 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use(async (res: AxiosResponse) => {
-  const resData: IRes = res.data || {}
+  const resData: IRes<any> = res.data || {}
   const { message, data, success } = resData
   if (!success) {
     await msg.error(message)

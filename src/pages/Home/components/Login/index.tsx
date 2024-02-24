@@ -1,12 +1,13 @@
 import { useAppDispatch } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
-import { setIsLogin, setUsername } from '@/store/userReducer'
+import { setUsername } from '@/store/userReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { Form, Input, message } from 'antd'
 import { memo } from 'react'
 
-import { userLoginService, type ILoginParam } from '@/service/user.ts'
+import type { ILoginParam } from '@/service/type.ts'
+import { userLoginService } from '@/service/user.ts'
 import type { FC, ReactNode } from 'react'
 
 const { Item } = Form
@@ -22,15 +23,18 @@ const Login: FC<IProps> = () => {
 
   const { run } = useRequest(
     async (values: ILoginParam) => {
-      await userLoginService(values)
+      return await userLoginService(values)
     },
     {
       manual: true,
-      onSuccess: () => {
+      onSuccess: (result) => {
+        const { data } = result
+
         message.success('登录成功！')
-        dispatch(setUsername(form.getFieldValue('username')))
+        localStorage.setItem('accessToken', data!.access_token)
+        localStorage.setItem('refreshToken', data!.refresh_token)
+        dispatch(setUsername(data!.username))
         dispatch(setIsLoginModalVisible(false))
-        dispatch(setIsLogin(true))
       }
     }
   )

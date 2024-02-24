@@ -1,7 +1,7 @@
+import type { IRegisterParam } from '@/service/type.ts'
 import {
   fetchUserRegisterCaptcha,
-  userRegisterService,
-  type IRegisterParam
+  userRegisterService
 } from '@/service/user.ts'
 import { useAppDispatch } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
