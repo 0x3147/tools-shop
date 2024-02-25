@@ -28,13 +28,18 @@ const Login: FC<IProps> = () => {
     {
       manual: true,
       onSuccess: (result) => {
-        const { data } = result
+        console.log(result)
+        const {
+          userInfo: { username },
+          token
+        } = result
+
         const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
 
         message.success('登录成功！')
-        localStorage.setItem('token', data!.token)
+        localStorage.setItem('token', token)
         localStorage.setItem('expiresAt', String(expiresAt))
-        dispatch(setUsername(data!.username))
+        dispatch(setUsername(username))
         dispatch(setIsLogin(true))
         dispatch(setIsLoginModalVisible(false))
       }

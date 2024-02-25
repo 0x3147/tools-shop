@@ -1,4 +1,5 @@
 export interface IRes<T> {
+  errorCode: number
   statusCode: number
   success: boolean
   data?: T
@@ -18,17 +19,17 @@ export interface ILoginParam {
 }
 
 export interface ILoginData {
-  postId: number | bigint
+  userInfo: {
+    postId: number | bigint
 
-  username: string
+    username: string
 
-  email: string
+    email: string
 
-  isAdmin: boolean
+    isAdmin: boolean
 
-  createTime: Date
-
-  member: boolean
+    createTime: Date
+  }
 
   token: string
 }

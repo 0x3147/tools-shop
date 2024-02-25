@@ -1,9 +1,4 @@
-import type {
-  ILoginData,
-  ILoginParam,
-  IRegisterParam,
-  IRes
-} from '@/service/type.ts'
+import type { ILoginData, ILoginParam, IRegisterParam } from '@/service/type.ts'
 import axios from './index'
 
 const userRegisterService = async (param: IRegisterParam) => {
@@ -22,9 +17,7 @@ const fetchUserRegisterCaptcha = async (email: string) => {
   })
 }
 
-const userLoginService = async (
-  param: ILoginParam
-): Promise<IRes<ILoginData>> => {
+const userLoginService = async (param: ILoginParam): Promise<ILoginData> => {
   const url = '/user/login'
 
   return await axios.post(url, param)
