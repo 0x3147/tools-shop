@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
-import { setUsername } from '@/store/userReducer'
+import { setIsLogin, setUsername } from '@/store/userReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { Form, Input, message } from 'antd'
@@ -29,10 +29,13 @@ const Login: FC<IProps> = () => {
       manual: true,
       onSuccess: (result) => {
         const { data } = result
+        const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
 
         message.success('登录成功！')
         localStorage.setItem('token', data!.token)
+        localStorage.setItem('expiresAt', String(expiresAt))
         dispatch(setUsername(data!.username))
+        dispatch(setIsLogin(true))
         dispatch(setIsLoginModalVisible(false))
       }
     }

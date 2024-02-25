@@ -30,9 +30,4 @@ const userLoginService = async (
   return await axios.post(url, param)
 }
 
-export {
-  fetchUserRegisterCaptcha,
-  refreshToken,
-  userLoginService,
-  userRegisterService
-}
+export { fetchUserRegisterCaptcha, userLoginService, userRegisterService }

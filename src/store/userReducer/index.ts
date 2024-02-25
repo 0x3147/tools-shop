@@ -6,11 +6,13 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 export interface IUserState {
   username: string
   email: string
+  isLogin: boolean
 }
 
 const initialState: IUserState = {
   username: '',
-  email: ''
+  email: '',
+  isLogin: false
 }
 
 export const userSlice = createSlice({
@@ -26,9 +28,14 @@ export const userSlice = createSlice({
       (draft: IUserState, { payload }: PayloadAction<string>) => {
         draft.email = payload
       }
+    ),
+    setIsLogin: produce(
+      (draft: IUserState, { payload }: PayloadAction<boolean>) => {
+        draft.isLogin = payload
+      }
     )
   }
 })
 
-export const { setEmail, setUsername } = userSlice.actions
+export const { setEmail, setUsername, setIsLogin } = userSlice.actions
 export default userSlice.reducer
