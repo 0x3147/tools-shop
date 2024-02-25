@@ -31,8 +31,7 @@ const Login: FC<IProps> = () => {
         const { data } = result
 
         message.success('登录成功！')
-        localStorage.setItem('accessToken', data!.access_token)
-        localStorage.setItem('refreshToken', data!.refresh_token)
+        localStorage.setItem('token', data!.token)
         dispatch(setUsername(data!.username))
         dispatch(setIsLoginModalVisible(false))
       }
