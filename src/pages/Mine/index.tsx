@@ -1,7 +1,8 @@
 import { getUserInfoService } from '@/service/user.ts'
 import { useAppSelector } from '@/store'
-import { memo, useEffect } from 'react'
+import { memo } from 'react'
 
+import { useRequest } from 'ahooks'
 import type { FC } from 'react'
 
 const Mine: FC = () => {
@@ -11,9 +12,8 @@ const Mine: FC = () => {
     console.log(result)
   }
 
-  useEffect(() => {
-    fetchUserInfo()
-  }, [])
+  const { data } = useRequest(fetchUserInfo)
+  console.log(data)
 
   return (
     <section className="flex w-full flex-col gap-y-10">
