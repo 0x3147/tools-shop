@@ -7,12 +7,14 @@ export interface IUserState {
   username: string
   email: string
   isLogin: boolean
+  postId: number | bigint
 }
 
 const initialState: IUserState = {
   username: '',
   email: '',
-  isLogin: false
+  isLogin: false,
+  postId: 0
 }
 
 export const userSlice = createSlice({
@@ -33,9 +35,15 @@ export const userSlice = createSlice({
       (draft: IUserState, { payload }: PayloadAction<boolean>) => {
         draft.isLogin = payload
       }
+    ),
+    setPostId: produce(
+      (draft: IUserState, { payload }: PayloadAction<number | bigint>) => {
+        draft.postId = payload
+      }
     )
   }
 })
 
-export const { setEmail, setUsername, setIsLogin } = userSlice.actions
+export const { setEmail, setUsername, setIsLogin, setPostId } =
+  userSlice.actions
 export default userSlice.reducer

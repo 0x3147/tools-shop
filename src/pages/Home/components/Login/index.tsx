@@ -1,6 +1,6 @@
 import { useAppDispatch } from '@/store'
 import { setIsLoginModalVisible } from '@/store/homeReducer'
-import { setIsLogin, setUsername } from '@/store/userReducer'
+import { setIsLogin, setPostId, setUsername } from '@/store/userReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
 import { Form, Input, message } from 'antd'
@@ -30,9 +30,10 @@ const Login: FC<IProps> = () => {
       onSuccess: (result) => {
         console.log(result)
         const {
-          userInfo: { username },
+          userInfo: { username, postId },
           token
         } = result
+        console.log(typeof postId, postId)
 
         const expiresAt = new Date().getTime() + 7 * 24 * 60 * 60 * 1000
 
@@ -40,6 +41,7 @@ const Login: FC<IProps> = () => {
         localStorage.setItem('token', token)
         localStorage.setItem('expiresAt', String(expiresAt))
         dispatch(setUsername(username))
+        dispatch(setPostId(BigInt(postId)))
         dispatch(setIsLogin(true))
         dispatch(setIsLoginModalVisible(false))
       }

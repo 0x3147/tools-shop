@@ -33,6 +33,11 @@ const SideBar: FC = () => {
     dispatch(setIsLoginModalVisible(!isLoginModalVisible))
   }
 
+  const handleJumpToMine = () => {
+    setSelected('/home/mine')
+    nav('/home/mine')
+  }
+
   const renderButton = (key: string, label: string, icon: ReactNode) => {
     const isSelected = selected === key
     const bgColor = isSelected ? 'bg-[#E6F4FF]' : 'hover:bg-[#E6F4FF]'
@@ -69,13 +74,11 @@ const SideBar: FC = () => {
       </div>
       {/* 登录按钮区域 */}
       {isLogin === true ? (
-        <div className="mb-8 flex h-16 items-center justify-center bg-[#E6F4FF] hover:bg-[#E6F4FF]">
-          <Avatar
-            className="cursor-pointer"
-            src={avatarPic}
-            size="large"
-            icon={<UserOutlined />}
-          />
+        <div
+          className="mb-8 flex h-16 cursor-pointer items-center justify-center hover:bg-[#E6F4FF]"
+          onClick={handleJumpToMine}
+        >
+          <Avatar src={avatarPic} size="large" icon={<UserOutlined />} />
           <span className="text-yellow-800">{username}</span>
         </div>
       ) : (
