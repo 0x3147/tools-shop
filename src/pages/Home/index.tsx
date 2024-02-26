@@ -1,36 +1,20 @@
 import Register from '@/pages/Home/components/Register'
 import { useAppDispatch, useAppSelector } from '@/store'
-import {
-  setIsLoginModalVisible,
-  setIsUserDetailModalVisible
-} from '@/store/homeReducer'
+import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { Modal, Tabs } from 'antd'
 import { memo } from 'react'
 import { Outlet } from 'react-router-dom'
 import Login from './components/Login'
-import UserInfo from './components/UserInfo'
 
 import type { FC } from 'react'
 
 const Home: FC = () => {
-  const { isLoginModalVisible, isUserDetailModalVisible } = useAppSelector(
-    (state) => state.homeReducer
-  )
+  const { isLoginModalVisible } = useAppSelector((state) => state.homeReducer)
 
   const dispatch = useAppDispatch()
 
   const handleCancelLoginModal = () => {
     dispatch(setIsLoginModalVisible(!isLoginModalVisible))
-  }
-
-  const handleCancelUserDetailModal = () => {
-    dispatch(setIsUserDetailModalVisible(!isUserDetailModalVisible))
-  }
-
-  const handleDetailModalOpen = (open: boolean) => {
-    if (open) {
-      console.log('执行请求')
-    }
   }
 
   return (
@@ -59,17 +43,6 @@ const Home: FC = () => {
             }
           ]}
         />
-      </Modal>
-      <Modal
-        title="用户信息"
-        width={720}
-        open={isUserDetailModalVisible}
-        footer={null}
-        onCancel={handleCancelUserDetailModal}
-        maskClosable={false}
-        afterOpenChange={handleDetailModalOpen}
-      >
-        <UserInfo />
       </Modal>
     </main>
   )
