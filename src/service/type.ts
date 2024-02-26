@@ -33,3 +33,13 @@ export interface ILoginData {
 
   token: string
 }
+
+export interface IUserInfo {
+  postId: number | bigint
+
+  username: string
+
+  email: string
+
+  createTime: Date
+}

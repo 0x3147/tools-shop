@@ -1,4 +1,9 @@
-import type { ILoginData, ILoginParam, IRegisterParam } from '@/service/type.ts'
+import type {
+  ILoginData,
+  ILoginParam,
+  IRegisterParam,
+  IUserInfo
+} from '@/service/type.ts'
 import axios from './index'
 
 const userRegisterService = async (param: IRegisterParam) => {
@@ -23,4 +28,21 @@ const userLoginService = async (param: ILoginParam): Promise<ILoginData> => {
   return await axios.post(url, param)
 }
 
-export { fetchUserRegisterCaptcha, userLoginService, userRegisterService }
+const getUserInfoService = async (
+  postId: number | bigint
+): Promise<IUserInfo> => {
+  const url = `/user/info`
+
+  return await axios.get(url, {
+    params: {
+      postId
+    }
+  })
+}
+
+export {
+  fetchUserRegisterCaptcha,
+  getUserInfoService,
+  userLoginService,
+  userRegisterService
+}
