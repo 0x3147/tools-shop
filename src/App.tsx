@@ -1,7 +1,7 @@
 import router from '@/router'
 import { useAppDispatch, useAppSelector } from '@/store'
 import { setIsLogin } from '@/store/userReducer'
-import { Skeleton } from 'antd'
+import { Skeleton, message } from 'antd'
 import { Suspense, useEffect } from 'react'
 import { RouterProvider } from 'react-router-dom'
 
@@ -22,6 +22,7 @@ function App() {
     if (isValid && !isLogin) {
       dispatch(setIsLogin(true))
     } else if (!isValid && isLogin) {
+      message.error('登录已过有效期，请重新登录！')
       localStorage.removeItem('token')
       localStorage.removeItem('expiresAt')
       dispatch(setIsLogin(false))
