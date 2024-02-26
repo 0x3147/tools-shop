@@ -8,6 +8,7 @@ const Home = lazy(() => import('@/pages/Home'))
 const Dashboard = lazy(() => import('@/pages/Dashboard'))
 const AllTools = lazy(() => import('@/pages/AllTools'))
 const Chat = lazy(() => import('@/pages/Chat'))
+const Mine = lazy(() => import('@/pages/Mine'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 
 const router: Router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router: Router = createBrowserRouter([
           {
             path: '/home/chat',
             element: <Chat />
+          },
+          {
+            path: '/home/mine',
+            element: <Mine />
           }
         ]
       }
