@@ -1,9 +1,6 @@
 import avatarPic from '@/assets/avatar.svg'
 import { useAppDispatch, useAppSelector } from '@/store'
-import {
-  setIsLoginModalVisible,
-  setIsUserDetailModalVisible
-} from '@/store/homeReducer'
+import { setIsLoginModalVisible } from '@/store/homeReducer'
 import {
   HomeOutlined,
   OpenAIOutlined,
@@ -17,9 +14,7 @@ import { useNavigate } from 'react-router-dom'
 import type { FC, ReactNode } from 'react'
 
 const SideBar: FC = () => {
-  const { isLoginModalVisible, isUserDetailModalVisible } = useAppSelector(
-    (state) => state.homeReducer
-  )
+  const { isLoginModalVisible } = useAppSelector((state) => state.homeReducer)
 
   const { isLogin, username } = useAppSelector((state) => state.userReducer)
 
@@ -36,10 +31,6 @@ const SideBar: FC = () => {
 
   const handleLoginClick = () => {
     dispatch(setIsLoginModalVisible(!isLoginModalVisible))
-  }
-
-  const handleUserDetailClick = () => {
-    dispatch(setIsUserDetailModalVisible(!isUserDetailModalVisible))
   }
 
   const renderButton = (key: string, label: string, icon: ReactNode) => {
@@ -84,7 +75,6 @@ const SideBar: FC = () => {
             src={avatarPic}
             size="large"
             icon={<UserOutlined />}
-            onClick={handleUserDetailClick}
           />
           <span className="text-yellow-800">{username}</span>
         </div>
