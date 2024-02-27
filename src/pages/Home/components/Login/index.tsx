@@ -3,8 +3,9 @@ import { setIsLoginModalVisible } from '@/store/homeReducer'
 import { setIsLogin, setPostId, setUsername } from '@/store/userReducer'
 import { LockOutlined, UserOutlined } from '@ant-design/icons'
 import { useRequest } from 'ahooks'
-import { Form, Input, message } from 'antd'
+import { Button, Form, Input, Space, message } from 'antd'
 import { memo } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import type { ILoginParam } from '@/service/type.ts'
 import { userLoginService } from '@/service/user.ts'
@@ -17,6 +18,8 @@ interface IProps {
 }
 
 const Login: FC<IProps> = () => {
+  const nav = useNavigate()
+
   const dispatch = useAppDispatch()
 
   const [form] = Form.useForm()
@@ -81,9 +84,14 @@ const Login: FC<IProps> = () => {
       </Item>
 
       <Item wrapperCol={{ offset: 5, span: 16 }}>
-        <button className="flex h-10 w-full cursor-pointer items-center justify-center rounded bg-gradient-to-r from-[#ff9a9e] to-[#fad0c4] text-white hover:from-[#f6d365] hover:to-[#fda085]">
-          登录
-        </button>
+        <Space direction="vertical">
+          <button className="flex h-10 w-full cursor-pointer items-center justify-center rounded bg-gradient-to-r from-[#ff9a9e] to-[#fad0c4] text-white hover:from-[#f6d365] hover:to-[#fda085]">
+            登录
+          </button>
+          <Button type="link" onClick={() => nav('/forget')}>
+            忘记密码?
+          </Button>
+        </Space>
       </Item>
     </Form>
   )

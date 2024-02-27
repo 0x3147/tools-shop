@@ -10,6 +10,7 @@ const AllTools = lazy(() => import('@/pages/AllTools'))
 const Chat = lazy(() => import('@/pages/Chat'))
 const Mine = lazy(() => import('@/pages/Mine'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
+const Forget = lazy(() => import('@/pages/Forget'))
 
 const router: Router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ const router: Router = createBrowserRouter([
         ]
       }
     ]
+  },
+  {
+    path: '/forget',
+    element: <Forget />
   },
   {
     path: '*',
