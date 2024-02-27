@@ -57,7 +57,7 @@ const SideBar: FC = () => {
   }
 
   return (
-    <section className="hidden h-screen w-64 flex-col border-r border-gray-200 bg-white p-2 text-black md:flex">
+    <section className="hidden h-screen w-64 flex-col border-r border-gray-200 bg-white p-2 text-black xl:flex">
       {/* Logo区域 */}
       <div className="flex h-16 items-center justify-center">
         <div className="text-xl font-semibold">LOGO</div>

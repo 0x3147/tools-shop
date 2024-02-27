@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '@/store'
 import { setIsLogin } from '@/store/userReducer'
 import { Skeleton, message } from 'antd'
 import { Suspense, useEffect } from 'react'
-import { RouterProvider, useNavigate } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 
 const checkTokenValidity = () => {
   const token = localStorage.getItem('token')
@@ -14,7 +14,6 @@ const checkTokenValidity = () => {
 
 function App() {
   const dispatch = useAppDispatch()
-  const nav = useNavigate()
   const { isLogin } = useAppSelector((state) => state.userReducer)
 
   useEffect(() => {
@@ -24,7 +23,6 @@ function App() {
       dispatch(setIsLogin(true))
     } else if (!isValid && isLogin) {
       message.error('登录已过有效期，请重新登录！')
-      nav('/home/dashboard')
       localStorage.removeItem('token')
       localStorage.removeItem('expiresAt')
       dispatch(setIsLogin(false))
