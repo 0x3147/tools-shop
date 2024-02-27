@@ -57,14 +57,20 @@ const Mine: FC = () => {
         <div className="flex flex-col gap-y-5">
           <div className="flex items-center gap-x-2 text-2xl text-black">
             账号信息
-            <Button size="small" onClick={handleEditInfo}>
-              {isInfoEdit ? '取消' : '编辑'}
-            </Button>
+            {isInfoEdit ? (
+              <Button type="primary" size="small" onClick={handleEditInfo}>
+                修改
+              </Button>
+            ) : (
+              <Button size="small" onClick={handleEditInfo}>
+                取消
+              </Button>
+            )}
           </div>
           <Form
             {...formItemLayout}
             layout={formLayout}
-            disabled={true}
+            disabled={isInfoEdit}
             className="rounded-md bg-white p-5 shadow-md"
           >
             <Form.Item label="用户名" name="username" className="mb-0">
