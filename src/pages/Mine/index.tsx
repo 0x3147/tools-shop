@@ -1,6 +1,6 @@
 import { getUserInfoService } from '@/service/user.ts'
 import { useAppSelector } from '@/store'
-import { Form, Input } from 'antd'
+import { Button, Form, Input } from 'antd'
 import { memo, useEffect, useState } from 'react'
 
 import { useRequest } from 'ahooks'
@@ -9,6 +9,7 @@ import type { FC } from 'react'
 
 const Mine: FC = () => {
   const [formLayout, setFormLayout] = useState<FormLayout>('inline')
+  const [isInfoEdit, setIsInfoEdit] = useState<boolean>(false)
 
   const { postId } = useAppSelector((state) => state.userReducer)
 
@@ -43,6 +44,10 @@ const Mine: FC = () => {
   const { data } = useRequest(fetchUserInfo)
   console.log(data)
 
+  const handleEditInfo = () => {
+    setIsInfoEdit(!isInfoEdit)
+  }
+
   return (
     <section className="flex w-full flex-col gap-y-10">
       <div className="rounded-lg bg-gradient-to-r from-pink-300 via-red-300 to-pink-500 p-5 text-3xl text-white shadow-xl">
@@ -50,20 +55,26 @@ const Mine: FC = () => {
       </div>
       <div className="flex flex-col rounded-lg bg-gray-100 p-5 shadow">
         <div className="flex flex-col gap-y-5">
-          <div className="text-2xl text-black">账号信息</div>
+          <div className="flex items-center gap-x-2 text-2xl text-black">
+            账号信息
+            <Button size="small" onClick={handleEditInfo}>
+              {isInfoEdit ? '取消' : '编辑'}
+            </Button>
+          </div>
           <Form
             {...formItemLayout}
             layout={formLayout}
+            disabled={true}
             className="rounded-md bg-white p-5 shadow-md"
           >
             <Form.Item label="用户名" name="username" className="mb-0">
-              <Input placeholder="请输入用户名" value={''} readOnly />
+              <Input placeholder="请输入用户名" value={''} />
             </Form.Item>
             <Form.Item label="邮箱" name="email" className="mb-0">
-              <Input placeholder="请输入邮箱" value={''} readOnly />
+              <Input placeholder="请输入邮箱" value={''} />
             </Form.Item>
-            <Form.Item label="会员等级" name="membershipLevel" className="mb-0">
-              <Input placeholder="请输入会员等级" value={''} readOnly />
+            <Form.Item label="会员类型" name="membershipLevel" className="mb-0">
+              <Input placeholder="请输入会员等级" value={''} disabled />
             </Form.Item>
           </Form>
         </div>
