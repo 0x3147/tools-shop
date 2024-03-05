@@ -83,13 +83,13 @@ const Login: FC<IProps> = () => {
         />
       </Item>
 
-      <Item wrapperCol={{ offset: 5, span: 16 }}>
+      <Item wrapperCol={{ offset: 6, span: 16 }}>
         <button className="flex h-10 w-full cursor-pointer items-center justify-center rounded bg-gradient-to-r from-[#ff9a9e] to-[#fad0c4] text-white hover:from-[#f6d365] hover:to-[#fda085]">
           登录
         </button>
       </Item>
 
-      <Item wrapperCol={{ offset: 5, span: 16 }}>
+      <Item wrapperCol={{ offset: 6, span: 16 }}>
         <Button type="link" onClick={() => nav('/forget')}>
           忘记密码?
         </Button>
