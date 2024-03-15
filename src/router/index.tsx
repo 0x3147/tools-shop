@@ -1,5 +1,5 @@
 import { lazy } from 'react'
-import { createBrowserRouter, Navigate } from 'react-router-dom'
+import { createHashRouter, Navigate } from 'react-router-dom'
 
 import type { Router } from '@remix-run/router/dist/router'
 
@@ -12,7 +12,7 @@ const Mine = lazy(() => import('@/pages/Mine'))
 const NotFound = lazy(() => import('@/pages/NotFound'))
 const Forget = lazy(() => import('@/pages/Forget'))
 
-const router: Router = createBrowserRouter([
+const router: Router = createHashRouter([
   {
     path: '/',
     element: <Layout />,
